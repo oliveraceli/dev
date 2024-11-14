@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Pasaje de Unidades </title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            background-color: #ffe9ee;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 50px;
+            border-radius: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #cc4d57; /* Color del título */
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+        input {
+            margin-top: 10px;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: 1px solid #dd8fa3;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+           background-color: #d89fb2; /* Color del botón */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container"> 
+    </h2> Pasaje de Unidades</h2>
+    <input type="number" id="inputValue" placeholder="ingrese valor" step="any">
+
+    <label for="inputUnit">Convertir de:</label>
+    <select id="inputUnit">
+        <option value="mm"> milimetros (mm) </option>
+        <option value="cm"> centimetros (cm) </option>
+        <option value="m"> metros (m) </option>
+        <option value="km"> kilometros (km) </option>
+    </select>
+    <label for="outputUnit">Convertir a:</label>
+    <select id="outputUnit">
+        <option value="mm"> milimetros (mm) </option>
+        <option value="cm"> centimetros (cm) </option>
+        <option value="m"> metros (m) </option>
+        <option value="km"> kilometros (km) </option>
+    </select>
+    <button onclick="convert()">Convertir</button>
+    <div class="result" id="result"></div>
+    </div>
+
+    <script type="text/javascript">
+    function convertirUnidad(valor, unidadOrigen, unidadDestino) {
+    let valorEnMetros;
+    let uo = unidadOrigen.options[unidadOrigen.selectedIndex].value
+    if (uo === "mm") {
+        valorEnMetros = valor / 1000;
+    } else if (uo === "cm") {
+        valorEnMetros = valor / 100;
+    } else if (uo === "m") {
+        valorEnMetros = valor;
+    } else if (uo === "km") {
+        valorEnMetros = valor * 1000;
+    } else {
+        console.log("Unidad de origen no válida");
+        return;
+    }
+
+    let resultado;
+    let ud = unidadDestino.options[unidadDestino.selectedIndex].value
+    if (ud === "mm") {
+        resultado = valorEnMetros * 1000;
+    } else if (ud === "cm") {
+        resultado = valorEnMetros * 100;
+    } else if (ud === "m") {
+        resultado = valorEnMetros;
+    } else if (ud === "km") {
+        resultado = valorEnMetros / 1000;
+    } else {
+        console.log("Unidad de destino no válida");
+        return;
+    }
+    document.getElementById("result").innerText = `${valor} ${unidadOrigen.options[unidadOrigen.selectedIndex].value} son ${resultado} ${unidadDestino.options[unidadDestino.selectedIndex].value}`
+    //console.log(`${valor} ${unidadOrigen} son ${resultado} ${unidadDestino}`);
+}
+
+function convert() {
+    let valor = document.getElementById("inputValue").value;
+    let unidadOrigen = document.getElementById("inputUnit");
+    //unidadOrigen.options[unidadOrigen.selectedIndex].value
+    let unidadDestino = document.getElementById("outputUnit")  ;
+    
+    convertirUnidad(parseFloat(valor), unidadOrigen, unidadDestino);
+}
+</script>
